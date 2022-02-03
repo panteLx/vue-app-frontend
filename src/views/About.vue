@@ -4,6 +4,9 @@
       <li class="font-bold">{{ post.title }}</li>
       <p>{{ post.body }}</p>
     </ul>
+    <div v-if="error" class="text-red-600 font-bold text-center p-4">
+      {{ error }}
+    </div>
   </div>
 </template>
 
@@ -13,6 +16,7 @@ export default {
   data() {
     return {
       posts: [],
+      error: "",
     };
   },
 
@@ -24,6 +28,7 @@ export default {
         this.posts = response.data;
       } catch (error) {
         console.log(error);
+        this.error = error;
       }
     },
   },
