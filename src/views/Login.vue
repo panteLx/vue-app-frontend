@@ -1,49 +1,12 @@
 <template>
-  <div>
-    <form @submit.prevent="userLogin">
-      <div class="text-4xl">Sign In</div>
-      <div>
-        <label>Email address</label>
-        <input type="email" v-model="user.email" />
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="password" v-model="user.password" />
-      </div>
-      <button type="submit">Sign In</button>
-      <p>
-        <router-link to="/">Forgot password ?</router-link>
-      </p>
-    </form>
-  </div>
+  <div><login-form /></div>
 </template>
 
 <script>
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import LoginForm from "../components/Login/LoginForm.vue";
 export default {
-  data() {
-    return {
-      user: {
-        email: "",
-        password: "",
-      },
-    };
-  },
-  methods: {
-    async userLogin() {
-      const auth = getAuth();
-      try {
-        await signInWithEmailAndPassword(
-          auth,
-          this.user.email,
-          this.user.password
-        );
-        this.$router.push({ name: "User" });
-        // ...
-      } catch (error) {
-        alert(error.message);
-      }
-    },
+  components: {
+    LoginForm,
   },
 };
 </script>
