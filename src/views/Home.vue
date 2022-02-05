@@ -6,69 +6,41 @@
   </div>
 
   <div v-if="!success">
-    <div class="text-4xl">Add DB Entry</div>
-    <span v-if="v$.entry.$error">
-      {{ v$.entry.$errors[0].$message }}
-    </span>
-    <form @submit.prevent="add">
-      <div>
-        <label>Name</label>
-        <input type="text" v-model="entry" />
-      </div>
-      <div>
-        <button>Add Entry</button>
-      </div>
-    </form>
+    <home-add-db-entry @getdata="getData" />
   </div>
 
   <div v-if="success">
-    <div>{{ id }}</div>
+    {{ id }}
     <div class="text-4xl">Published!</div>
     <button @click.prevent="successToggle">Back</button>
   </div>
 </template>
 
 <script>
-import { getFirestore, collection, addDoc } from "firebase/firestore";
-import useValidate from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import HomeAddDbEntry from "../components/Home/HomeAddDbEntry.vue";
 
 export default {
+  emits: ["getdata"],
   data() {
     return {
-      v$: useValidate(),
-      entry: "",
       id: 0,
       success: false,
     };
   },
 
-  validations() {
-    return {
-      entry: { required },
-    };
-  },
-
   methods: {
-    async add() {
-      this.v$.$validate(); // checks all inputs
-      if (!this.v$.$error) {
-        try {
-          const docRef = await addDoc(collection(getFirestore(), "users"), {
-            name: this.entry,
-          });
-          this.id = docRef.id;
-          console.log("Document written with ID: ", docRef.id);
-          this.success = true;
-        } catch (e) {
-          console.error("Error adding document: ", e);
-        }
-      }
+    getData(value) {
+      this.id = value.id;
+      this.success = value.success;
     },
 
     successToggle() {
       this.$router.go();
     },
+  },
+
+  components: {
+    HomeAddDbEntry,
   },
 };
 </script>

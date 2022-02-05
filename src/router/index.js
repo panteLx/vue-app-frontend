@@ -4,6 +4,7 @@ import User from "../views/User.vue";
 import Register from "../views/Register.vue";
 import Login from "../views/Login.vue";
 import Tests from "../views/Tests.vue";
+import Tests2 from "../views/Tests2.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/tests",
     name: "Tests",
     component: Tests,
+  },
+  {
+    path: "/tests2",
+    name: "Tests2",
+    component: Tests2,
   },
 ];
 

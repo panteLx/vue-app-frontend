@@ -24,7 +24,8 @@ export default {
       this.v$.$validate(); // checks all inputs
       if (!this.v$.$error) {
         // if ANY fail validation
-        alert("Form successfully submitted.");
+        console.log("Form successfully submitted.");
+        this.$emit("id", 11);
       } else {
         alert("Form failed validation");
       }
