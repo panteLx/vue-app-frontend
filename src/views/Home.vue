@@ -24,6 +24,7 @@
   <div v-if="success">
     <div>{{ id }}</div>
     <div class="text-4xl">Published!</div>
+    <button @click.prevent="successToggle">Back</button>
   </div>
 </template>
 
@@ -37,7 +38,7 @@ export default {
     return {
       v$: useValidate(),
       entry: "",
-      id: "",
+      id: 0,
       success: false,
     };
   },
@@ -63,6 +64,10 @@ export default {
           console.error("Error adding document: ", e);
         }
       }
+    },
+
+    successToggle() {
+      this.$router.go();
     },
   },
 };

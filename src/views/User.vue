@@ -32,14 +32,14 @@
       <p>{{ post.body }}</p>
     </ul>
     <div v-if="error" class="text-red-600 font-bold text-center p-4">
-      <ConnErr />
+      <ErrConn />
       {{ error }}
     </div>
   </div>
 </template>
 
 <script>
-import ConnErr from "../components/ConnErr.vue";
+import ErrConn from "../components/ErrConn.vue";
 import axios from "axios";
 import { onAuthStateChanged, getAuth, updateProfile } from "firebase/auth";
 import useValidate from "@vuelidate/core";
@@ -82,15 +82,14 @@ export default {
     async update() {
       this.v$.$validate(); // checks all inputs
       if (!this.v$.$error) {
-        await updateProfile(getAuth().currentUser, {
-          displayName: this.updateuser.name,
-        })
-          .then(() => {
-            this.success = true;
-          })
-          .catch((error) => {
-            console.log(error);
+        try {
+          await updateProfile(getAuth().currentUser, {
+            displayName: this.updateuser.name,
           });
+          this.success = true;
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
 
@@ -106,7 +105,7 @@ export default {
     },
   },
   components: {
-    ConnErr,
+    ErrConn,
   },
 };
 </script>

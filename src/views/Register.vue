@@ -36,18 +36,17 @@ export default {
     };
   },
   methods: {
-    userRegistration() {
-      createUserWithEmailAndPassword(
-        getAuth(),
-        this.user.email,
-        this.user.password
-      )
-        .then(() => {
-          this.$router.push({ name: "Home" });
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
+    async userRegistration() {
+      try {
+        await createUserWithEmailAndPassword(
+          getAuth(),
+          this.user.email,
+          this.user.password
+        );
+        this.$router.push({ name: "User" });
+      } catch (error) {
+        alert(error.message);
+      }
     },
   },
 };

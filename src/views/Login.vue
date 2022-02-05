@@ -30,17 +30,19 @@ export default {
     };
   },
   methods: {
-    userLogin() {
+    async userLogin() {
       const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.user.email, this.user.password)
-        .then(() => {
-          // Signed in
-          this.$router.push({ name: "User" });
-          // ...
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
+      try {
+        await signInWithEmailAndPassword(
+          auth,
+          this.user.email,
+          this.user.password
+        );
+        this.$router.push({ name: "User" });
+        // ...
+      } catch (error) {
+        alert(error.message);
+      }
     },
   },
 };
