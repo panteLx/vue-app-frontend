@@ -1,5 +1,8 @@
 <template>
-  <template v-if="!user"><signup-form /></template>
+  <template v-if="user">
+    <user-info :user="user['displayName']" />
+    <user-update />
+  </template>
   <template v-else><err-access /></template>
 </template>
 
@@ -7,19 +10,20 @@
 import { useStore } from "vuex";
 import { computed } from "vue";
 import ErrAccess from "../components/Error/ErrAccess.vue";
-import SignupForm from "../components/Signup/SignupForm.vue";
+import UserInfo from "../components/User/UserInfo.vue";
+import UserUpdate from "../components/User/UserUpdate.vue";
 
 export default {
   setup() {
     const store = useStore();
-
     return {
-      user: computed(() => store.state.user),
+      user: computed(() => store.getters.userInfo),
     };
   },
   components: {
     ErrAccess,
-    SignupForm,
+    UserInfo,
+    UserUpdate,
   },
 };
 </script>
