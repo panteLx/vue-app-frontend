@@ -64,6 +64,11 @@ const store = createStore({
         throw new Error("error update user" + e);
       }
     },
+
+    async get() {
+      console.log("get action");
+      //TODO get shit
+    },
   },
 
   getters: {

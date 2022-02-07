@@ -7,6 +7,10 @@
 </template>
 
 <script>
+// TODO user db bei creation von user erstellen direkt - uid dort einfügen
+// username usw dort adden und calls direkt an diese db machen
+// userdbfetch methode nutzen und nach jedem add von daten neu fetchen lassen
+
 import { useStore } from "vuex";
 import { computed } from "vue";
 import ErrAccess from "../components/Error/ErrAccess.vue";
